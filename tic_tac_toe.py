@@ -1,24 +1,10 @@
+# tic_tac_toe.py
+
 from tkinter import Tk, Button, Label, Frame
 import random
+from style import *
+from base_game import BaseGame
 
-# app color palette 
-RETRO_BG = "#1e1b3a"
-RETRO_FRAME = "#2b235a"
-RETRO_BTN = "#00ffd5"
-RETRO_BTN_ALT = "#ff5cc8"
-RETRO_FG = "#00ff90"
-RETRO_ACCENT = "#ffe600"
-FONT_BIG = ("Courier", 28, "bold")
-FONT_MED = ("Courier", 18, "bold")
-
-
-# base game for new games to inherit from
-class BaseGame:
-    def start(self, app):
-        raise NotImplementedError("Must implement start method")
-
-
-# tic tac toe game
 class TicTacToeGame(BaseGame):
     def __init__(self):
         self.window = None
@@ -91,51 +77,3 @@ class TicTacToeGame(BaseGame):
     def back_to_menu(self, app):
         self.window.destroy()
         app.main_menu()
-
-
-# connect 4 game
-#class ConnectFourGame(BaseGame)
-    #empty logic if someone wants to do it
-
-class BlackjackGame(BaseGame):
-    def start(self,app):
-
-
-# app controller to handle the menu
-class GameApp:
-    def __init__(self):
-        self.window = None
-
-    def main_menu(self):
-        self.window = Tk()
-        self.window.title("Game Menu")
-        self.window.configure(bg=RETRO_BG)
-
-        Label(self.window, text="Choose a Game", font=FONT_BIG, fg=RETRO_ACCENT, bg=RETRO_BG).pack(pady=20)
-
-        Button(self.window, text="Tic Tac Toe", font=FONT_MED, bg=RETRO_BTN, fg="black",
-               activebackground=RETRO_BTN_ALT, command=self.start_tic_tac_toe).pack(pady=10)
-
-        Button(self.window, text="Connect 4", font=FONT_MED, bg=RETRO_BTN, fg="black",
-               activebackground=RETRO_BTN_ALT, command=self.start_connect_four).pack(pady=10)
-
-        Button(self.window, text="Blackjack", font=FONT_MED, bg=RETRO_BTN, fg="black",
-               activebackground=RETRO_BTN_ALT, command=self.start_blackjack).pack(pady=10)
-        
-        self.window.mainloop()
-
-    def start_tic_tac_toe(self):
-        self.window.destroy()
-        TicTacToeGame().start(self)
-
-    def start_connect_four(self):
-        self.window.destroy()
-        ConnectFourGame().start(self)
-
-    def start_blackjack(self):
-        self.window.destroy()
-        BlackjackGame().start(self)
-
-# start the shit
-if __name__ == "__main__":
-    GameApp().main_menu()
