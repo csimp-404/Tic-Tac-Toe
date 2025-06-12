@@ -1,6 +1,15 @@
 from tkinter import Tk, Button, Label, Frame
 import random
 
+RETRO_BG = "#1e1b3a"          # Deep purple/navy
+RETRO_FRAME = "#2b235a"       # Dark indigo
+RETRO_BTN = "#00ffd5"         # Neon teal
+RETRO_BTN_ALT = "#ff5cc8"     # Hot pink
+RETRO_FG = "#00ff90"          # Electric green
+RETRO_ACCENT = "#ffe600"      # Neon yellow
+FONT_BIG = ("Courier", 28, "bold")
+FONT_MED = ("Courier", 18, "bold")
+
 def open_tic_tac_toe():
     menu.destroy()
     tic_tac_toe_game()
@@ -13,11 +22,15 @@ def main_menu():
     global menu
     menu = Tk()
     menu.title("Game Menu")
+    menu.configure(bg=RETRO_BG)
 
-    Label(menu, text="Choose a Game", font=("Arial", 24)).pack(pady=20)
+    Label(menu, text="Choose a Game", font=FONT_BIG, fg=RETRO_ACCENT, bg=RETRO_BG).pack(pady=20)
 
-    Button(menu, text="Tic Tac Toe", font=("Arial", 18), command=open_tic_tac_toe).pack(pady=10)
-    Button(menu, text="Connect 4", font=("Arial", 18), command=open_connect_four).pack(pady=10)
+    Button(menu, text="Tic Tac Toe", font=FONT_MED, bg=RETRO_BTN, fg="black",
+           activebackground=RETRO_BTN_ALT, command=open_tic_tac_toe).pack(pady=10)
+    
+    Button(menu, text="Connect 4", font=FONT_MED, bg=RETRO_BTN, fg="black",
+           activebackground=RETRO_BTN_ALT, command=open_connect_four).pack(pady=10)
 
     menu.mainloop()
 
@@ -64,29 +77,35 @@ def tic_tac_toe_game():
 
     window = Tk()
     window.title("Tic Tac Toe")
+    window.configure(bg=RETRO_BG)
 
-    players = ["X", "O"]
+
+    players = ["❌", "⭕"]
     player = random.choice(players)
     buttons = [[0, 0, 0] for _ in range(3)]
 
-    label = Label(window, text=f"Player {player}'s turn", font=("Arial", 24))
-    label.pack(side="top")
+    Label(window, text="TIC TAC TOE", font=FONT_BIG, fg=RETRO_ACCENT, bg=RETRO_BG).pack(pady=(15, 5))
+    label = Label(window, text=f"Player {player}'s turn", font=FONT_MED, fg=RETRO_FG, bg=RETRO_BG)
+    label.pack(pady=(0, 10))
 
-    reset_button = Button(window, text="Reset", font=('Arial', 24), command=new_game)
-    reset_button.pack(side="top")
+    reset_button = Button(window, text="Reset", font=FONT_MED, bg=RETRO_BTN_ALT, fg="black",
+                          activebackground=RETRO_BTN, command=new_game)
+    reset_button.pack(pady=(0, 5))
 
-    frame = Frame(window)
+    frame = Frame(window, bg=RETRO_FRAME, bd=5, relief="ridge")
     frame.pack()
 
     for row in range(3):
         for column in range(3):
-            buttons[row][column] = Button(frame, text="", font=('Arial', 24), width=5, height=2,
+            buttons[row][column] = Button(frame, text="", font=FONT_MED, width=5, height=2,
+                                          bg=RETRO_BTN, fg="black", activebackground=RETRO_BTN_ALT,
                                           command=lambda r=row, c=column: next_turn(r, c))
-            buttons[row][column].grid(row=row, column=column)
+            buttons[row][column].grid(row=row, column=column, padx=2, pady=2)
 
-    back_button = Button(window, text="Back to Menu", font=('Arial, 18'), command=back_to_menu)
-    back_button.pack(pady=10)
-    
+    back_button = Button(window, text="Back to Menu", font=FONT_MED, bg=RETRO_BTN_ALT, fg="black",
+                         activebackground=RETRO_BTN, command=back_to_menu)
+    back_button.pack(pady=(10, 15))
+
     window.mainloop()
 
 def connect_four_game():
